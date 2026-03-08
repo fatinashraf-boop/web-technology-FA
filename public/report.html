@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Report Item</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="action-bar">
+        <button class="btn-dashboard" onclick="window.location.href='dashboard.html'"> <-- Dashboard</button>
+    </div>
+<div class="container-form">
+    <h2>Report Lost/Found Item</h2>
+    <form id="reportForm" enctype="multipart/form-data">
+        <label>Item Name</label>
+        <input type="text" id="title" placeholder="e.g. Blue Wallet" name="title" required>
+
+        <label>Item Category</label>
+        <select id="category" name="category">
+
+        <option value="Electronics">Electronics</option>
+        <option value="Labratory">Labratory Item</option>
+        <option value="Personal">Personal Item</option>
+        <option value="Other">Other</option>
+
+        </select>
+
+        <label>Location Found/Lost</label>
+        <input type="text" id="location" placeholder="e.g. Library Level 2" name="location" required>
+
+        <label>Date</label>
+        <input type="date" id="item_date" name="item_date" required>
+
+        <label>Contact Info</label>
+        <input type="text" id="contact" placeholder="Phone or Email" name="contact" required>
+
+        <label>Description</label>
+        <textarea id="description" rows="3" placeholder="Describe the item..." name="description"></textarea>
+
+        <label>Upload Photo</label>
+        <input type="file" id="photo" accept="image/*" name="photo">
+
+        <input type="hidden" name="status" value="Lost">
+
+        <button type="submit">Submit Report</button>
+    </form>
+</div>
+
+<script src="js/report.js"></script>
+
+</body>
+</html>

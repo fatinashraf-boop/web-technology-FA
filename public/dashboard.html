@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Dashboard</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<div class="dashboard-container">
+    <h1>Student Dashboard</h1>
+    
+    <div class="action-bar">
+        <button class="btn-report" onclick="window.location.href='report.html'">Report Item</button>
+        <button class="btn-logout" onclick="logout()">Logout</button>
+    </div>
+
+    <div id="items"></div> </div>
+
+
+<script>
+
+const token=localStorage.getItem("token")
+
+if(!token) location="index.html"
+
+async function loadItems() {
+
+    const res = await fetch("http://localhost:3000/api/items", {
+        headers: { Authorization: "Bearer " + token }
+    });
+
+    const items = await res.json();
+
+    const container = document.getElementById("items");
+    container.innerHTML = "";
+
+    items.forEach(item => {
+
+        let typeClass = "";
+        const status = (item.status || "").toLowerCase();
+
+if(status === "lost"){
+    typeClass = "type-lost";
+}
+else if(status === "found"){
+    typeClass = "type-found";
+}
+else if(status === "claimed"){
+    typeClass = "type-claimed";
+}
+
+        container.innerHTML += `
+            <div class="card">
+                <span class="type-badge ${typeClass}">${item.status}</span>
+                <h3>${item.title}</h3>
+                <p><strong>Location:</strong> ${item.location}</p>
+                <p>${item.description}</p>
+                <p><em>Contact: ${item.contact}</em></p>
+                ${item.photo_path ? `<img src="http://localhost:3000${item.photo_path}" style="width:100%; border-radius:8px; margin-top:10px;">` : ''}
+            </div>
+        `;
+    });
+
+}
+
+loadItems()
+
+function logout(){
+
+localStorage.removeItem("token")
+location="index.html"
+
+}
+
+</script>
+
+</body>
+</html>

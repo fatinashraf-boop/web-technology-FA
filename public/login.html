@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <h2>Student Login</h2>
+
+    <form id="loginForm">
+        <input type="text" id="student_id" placeholder="Student ID" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+    </form>
+
+    <p>
+        No account? <a href="register.html">Register</a>
+    </p>
+</div>
+
+<script>
+document.getElementById("loginForm").addEventListener("submit", async e => {
+    e.preventDefault();
+
+    const student_id = document.getElementById("student_id").value;
+    const password = document.getElementById("password").value;
+
+    try {
+        const res = await fetch("/api/auth/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ student_id, password })
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+            localStorage.setItem("token", data.token);
+            // Fixed: Redirect to dashboard.html instead of index.html [cite: 208]
+            window.location.href = "dashboard.html"; 
+        } else {
+            alert(data.message);
+        }
+    } catch (err) {
+        console.error("Login error:", err);
+        alert("Server connection failed.");
+    }
+});
+</script>
+
+</body>
+</html>

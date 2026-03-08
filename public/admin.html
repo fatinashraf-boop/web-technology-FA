@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Admin Dashboard</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="dashboard-container">
+
+<h1>Admin Item Management</h1>
+
+
+<div class="action-bar">
+<input type="text" id="searchInput" placeholder="Search items...">
+<button class="btn-logout" onclick="logout()">Logout</button>
+</div>
+
+<table id="adminTable">
+
+<thead>
+<tr>
+<th>ID</th>
+<th>Item</th>
+<th>Category</th>
+<th>Location</th>
+<th>Date</th>
+<th>Photo</th>
+<th>Status</th>
+<th>Actions</th>
+</tr>
+</thead>
+
+<tbody id="adminTableBody">
+<tr>
+<td colspan="8">Loading items...</td>
+</tr>
+</tbody>
+
+</table>
+
+</div>
+
+<script src="js/admin.js"></script>
+
+<script>
+function logout(){
+localStorage.removeItem("token")
+location="index.html"
+}
+</script>
+
+</body>
+</html>
